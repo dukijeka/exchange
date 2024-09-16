@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "@mantine/core/styles.css";
@@ -8,6 +8,12 @@ import { MantineProvider } from "@mantine/core";
 
 function App() {
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    fetch("http://localhost:4001/api/ticker/EUR-USD").then((res) =>
+      res.json().then((res) => console.log(res)),
+    );
+  }, []);
 
   return (
     <MantineProvider>
