@@ -3,10 +3,11 @@ import { useDebouncedCallback } from "@mantine/hooks";
 import ExchangeResultsTable from "./ExchangeResultsTable/ExchangeResultsTable.tsx";
 import ExchangeParameters from "./ExchangeParameters/ExchangeParameters.tsx";
 import useCurrencies from "./useCurrencies.ts";
+import { Containerimpl, Text } from "@mantine/core";
 
 const ExchangeRates = () => {
   const [selectedCurrency, setSelectedCurrency] = useState("USD");
-  const [amountToExchange, setAmountToExchange] = useState(1);
+  const [amountToExchange, setAmountToExchange] = useState(0);
 
   const { currencyPairs, status, availableCurrencies } =
     useCurrencies(selectedCurrency);
@@ -24,18 +25,24 @@ const ExchangeRates = () => {
   }
 
   return (
-    <>
+    <Container mx="0" w="100vw">
       <ExchangeParameters
         onNewAmount={handleNewAmountToExchange}
         onNewCurrencySelected={handleNewCurrencySelected}
-        availableCurrencies={availableCurrencies ?? []}
+        availableCurrencies={availableCurrencies}
       ></ExchangeParameters>
-      <ExchangeResultsTable
-        results={currencyPairs}
-        amountForExchange={amountToExchange}
-        loadingStatus={status}
-      ></ExchangeResultsTable>
-    </>
+      {amountToExchange === 0 ? (
+        <Container w="100vw" h="90vw" mt="md">
+          <Text>Enter the amount to check the rates</Text>
+        </Container>
+      ) : (
+        <ExchangeResultsTable
+          results={currencyPairs}
+          amountForExchange={amountToExchange}
+          loadingStatus={status}
+        ></ExchangeResultsTable>
+      )}
+    </Container>
   );
 };
 

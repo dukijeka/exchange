@@ -12,7 +12,11 @@ const CurrenciesSelection = (props: CurrenciesSelectionProps) => {
 
   return (
     <Select
-      data={props.availableCurrencies}
+      data={
+        props.availableCurrencies.length > 0
+          ? props.availableCurrencies
+          : ["USD"]
+      }
       defaultValue="USD"
       allowDeselect={false}
       size="lg"

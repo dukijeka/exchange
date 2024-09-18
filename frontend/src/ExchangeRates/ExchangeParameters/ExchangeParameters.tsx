@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { Group, NumberInput } from "@mantine/core";
+import { Flex, NumberInput } from "@mantine/core";
 import CurrenciesSelection from "./CurrenciesSelection.tsx";
 
 interface ExchangeParametersProps {
@@ -10,10 +10,10 @@ interface ExchangeParametersProps {
 
 const ExchangeParameters = (props: ExchangeParametersProps) => {
   const handleNewAmount = (event: FormEvent<HTMLInputElement>) => {
-    const inputValue = event.currentTarget.value;
+    const inputValue = event.currentTarget.value.replace(",", "");
 
     if (inputValue === "") {
-      props.onNewAmount(1);
+      props.onNewAmount(0);
       return;
     }
 
@@ -21,23 +21,23 @@ const ExchangeParameters = (props: ExchangeParametersProps) => {
   };
 
   return (
-    <Group grow>
+    <Flex>
       <NumberInput
-        rightSection={
-          <CurrenciesSelection
-            availableCurrencies={props.availableCurrencies}
-            onNewCurrencySelected={props.onNewCurrencySelected}
-          />
-        }
+        hideControls
         size="lg"
+        thousandSeparator=","
         style={{ width: "100%" }}
         rightSectionWidth="md"
-        placeholder="1.00"
+        placeholder="0.00"
         name="amount"
         onInput={handleNewAmount}
         allowNegative={false}
       />
-    </Group>
+      <CurrenciesSelection
+        availableCurrencies={props.availableCurrencies}
+        onNewCurrencySelected={props.onNewCurrencySelected}
+      />
+    </Flex>
   );
 };
 
