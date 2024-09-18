@@ -1,7 +1,9 @@
-import { Card, Grid, Group, Text } from "@mantine/core";
+import { Grid } from "@mantine/core";
 import CurrencyPair from "../CurrencyPair.ts";
 import { QueryStatus } from "@tanstack/react-query";
 import ExchangeResultsTableLoadingSkeleton from "./ExchangeResultsTableLoadingSkeleton.tsx";
+
+import ExchangeResultsTableItem from "./ExchangeResultsTableItem.tsx";
 
 interface ExchangeResultsTableProps {
   amountForExchange: number;
@@ -18,16 +20,11 @@ const ExchangeResultsTable = (props: ExchangeResultsTableProps) => {
     <>
       <Grid>
         {props.results?.map((result) => (
-          <Grid.Col key={result.targetCurrency} span={6}>
-            <Card withBorder mt={"sm"}>
-              <Group justify="space-between" mt="md" mb="xs">
-                <Text>
-                  {(props.amountForExchange * result.exchangeRate).toFixed(3)}
-                </Text>
-                <Text>{result.targetCurrency}</Text>
-              </Group>
-            </Card>
-          </Grid.Col>
+          <ExchangeResultsTableItem
+            key={result.targetCurrency}
+            amountForExchange={props.amountForExchange}
+            currencyPair={result}
+          />
         ))}
       </Grid>
     </>

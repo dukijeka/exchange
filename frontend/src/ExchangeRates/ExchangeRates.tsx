@@ -3,7 +3,7 @@ import { useDebouncedCallback } from "@mantine/hooks";
 import ExchangeResultsTable from "./ExchangeResultsTable/ExchangeResultsTable.tsx";
 import ExchangeParameters from "./ExchangeParameters/ExchangeParameters.tsx";
 import useCurrencies from "./useCurrencies.ts";
-import { Containerimpl, Text } from "@mantine/core";
+import { Container, Text } from "@mantine/core";
 
 const ExchangeRates = () => {
   const [selectedCurrency, setSelectedCurrency] = useState("USD");
