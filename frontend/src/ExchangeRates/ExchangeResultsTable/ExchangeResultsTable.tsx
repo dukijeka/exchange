@@ -1,31 +1,33 @@
-import { useEffect } from "react";
-import { Card, Container, Grid, Group, Text } from "@mantine/core";
+import { Card, Grid, Group, Text } from "@mantine/core";
 import CurrencyPair from "../CurrencyPair.ts";
+import { QueryStatus } from "@tanstack/react-query";
 
 interface ExchangeResultsTableProps {
+  amountForExchange: number;
   results: CurrencyPair[];
+  loadingStatus: QueryStatus;
 }
 
 const ExchangeResultsTable = (props: ExchangeResultsTableProps) => {
-  useEffect(() => {
-    console.log(props.results);
-  }, []);
+  if (props.loadingStatus === "pending") {
+    return <span>Loading...</span>;
+  }
 
   return (
-    <Container my="md">
-      <Grid>
-        {props.results.map((result) => (
-          <Grid.Col span={6}>
-            <Card withBorder key={result.targetCurrency} mt={"sm"}>
-              <Group justify="space-between" mt="md" mb="xs">
-                <Text>{result.exchangeRate.toFixed(3)}</Text>
-                <Text>{result.targetCurrency}</Text>
-              </Group>
-            </Card>
-          </Grid.Col>
-        ))}
-      </Grid>
-    </Container>
+    <Grid>
+      {props.results.map((result) => (
+        <Grid.Col key={result.targetCurrency} span={6}>
+          <Card withBorder mt={"sm"}>
+            <Group justify="space-between" mt="md" mb="xs">
+              <Text>
+                {(props.amountForExchange * result.exchangeRate).toFixed(3)}
+              </Text>
+              <Text>{result.targetCurrency}</Text>
+            </Group>
+          </Card>
+        </Grid.Col>
+      ))}
+    </Grid>
   );
 };
 

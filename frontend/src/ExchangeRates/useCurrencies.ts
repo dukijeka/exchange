@@ -8,22 +8,38 @@ const useCurrencies = (selectedCurrency: string) => {
     queryFn: fetchExchangeRates,
   });
 
-  const currencyPairs = results?.data?.map((currencyPairApiResponse) => {
-    const currencyPair: CurrencyPair = {
-      sourceCurrency: selectedCurrency,
-      targetCurrency: currencyPairApiResponse.pair
-        .replace("-", "")
-        .replace(selectedCurrency, ""),
-      exchangeRate: 1 / currencyPairApiResponse.ask,
-    };
+  const currencyPairs = results?.data
+    ?.filter(
+      (currencyPairApiResponse) =>
+        currencyPairApiResponse.currency !== selectedCurrency,
+    )
+    .map((currencyPairApiResponse) => {
+      const currencyPair: CurrencyPair = {
+        sourceCurrency: selectedCurrency,
+        targetCurrency: currencyPairApiResponse.pair
+          .replace("-", "")
+          .replace(selectedCurrency, ""),
+        exchangeRate: currencyPairApiResponse.ask,
+      };
 
-    return currencyPair;
-  });
+      return currencyPair;
+    });
+
+  if (!currencyPairs) {
+    return {
+      currencyPairs: [],
+      status: results.status,
+      availableCurrencies: [],
+    };
+  }
 
   return {
     currencyPairs,
     status: results.status,
-    availableCurrencies: currencyPairs?.map((pair) => pair.targetCurrency),
+    availableCurrencies: [
+      ...currencyPairs.map((pair) => pair.targetCurrency),
+      selectedCurrency,
+    ],
   };
 };
 
