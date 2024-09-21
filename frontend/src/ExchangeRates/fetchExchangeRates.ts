@@ -1,5 +1,5 @@
 import { QueryFunction } from "@tanstack/react-query";
-import CurrencyPairApiResponse from "./CurrencyPairApiResponse.ts";
+import CurrencyPairApiResponse from "./model/CurrencyPairApiResponse.ts";
 
 const baseURI = "http://localhost:4001/api/ticker";
 

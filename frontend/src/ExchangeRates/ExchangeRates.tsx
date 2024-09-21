@@ -37,6 +37,7 @@ const ExchangeRates = () => {
         </Container>
       ) : (
         <ExchangeResultsTable
+          data-testid="exchangeResultsTable"
           results={currencyPairs}
           amountForExchange={amountToExchange}
           loadingStatus={status}

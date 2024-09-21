@@ -32,6 +32,7 @@ const ExchangeParameters = (props: ExchangeParametersProps) => {
         name="amount"
         onInput={handleNewAmount}
         allowNegative={false}
+        data-testid="amountToExchangeInput"
       />
       <CurrenciesSelection
         availableCurrencies={props.availableCurrencies}

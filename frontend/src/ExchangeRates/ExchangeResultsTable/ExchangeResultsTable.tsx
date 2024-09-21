@@ -1,5 +1,5 @@
 import { Grid } from "@mantine/core";
-import CurrencyPair from "../CurrencyPair.ts";
+import CurrencyPair from "../model/CurrencyPair.ts";
 import { QueryStatus } from "@tanstack/react-query";
 import ExchangeResultsTableLoadingSkeleton from "./ExchangeResultsTableLoadingSkeleton.tsx";
 

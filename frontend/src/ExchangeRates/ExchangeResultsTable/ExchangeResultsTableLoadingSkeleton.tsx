@@ -4,7 +4,7 @@ const dummyArray = [...Array(50).keys()];
 
 const ExchangeResultsTableLoadingSkeleton = () => {
   return (
-    <Grid mt="md">
+    <Grid mt="md" data-testid="exchangeResultsLoadingSkeleton">
       {dummyArray.map((dummyArrayElement) => (
         <Grid.Col span={6} key={dummyArrayElement}>
           <Skeleton visible={true}>

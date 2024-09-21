@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import fetchExchangeRates from "./fetchExchangeRates.ts";
-import CurrencyPair from "./CurrencyPair.ts";
+import CurrencyPair from "./model/CurrencyPair.ts";
 
 const useCurrencies = (selectedCurrency: string) => {
   const results = useQuery({

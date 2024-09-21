@@ -1,5 +1,5 @@
 import { Card, Container, Grid, Group, Image, Text } from "@mantine/core";
-import CurrencyPair from "../CurrencyPair.ts";
+import CurrencyPair from "../model/CurrencyPair.ts";
 
 interface ExchangeResultsTableItemProps {
   amountForExchange: number;
@@ -11,7 +11,9 @@ const ExchangeResultsTableItem = (props: ExchangeResultsTableItemProps) => {
     <Grid.Col span={6}>
       <Card withBorder mt={"sm"}>
         <Group justify="space-between" mt="md" mb="xs">
-          <Text>
+          <Text
+            data-testid={`exchangeAmountFor${props.currencyPair.targetCurrency}`}
+          >
             {(
               props.amountForExchange * props.currencyPair.exchangeRate
             ).toFixed(3)}
