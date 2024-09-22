@@ -4,6 +4,7 @@ import ExchangeResultsTable from "./ExchangeResultsTable/ExchangeResultsTable.ts
 import ExchangeParameters from "./ExchangeParameters/ExchangeParameters.tsx";
 import useCurrencies from "./useCurrencies.ts";
 import { Container, Text } from "@mantine/core";
+import ErrorBoundary from "../ErrorBoundry.tsx";
 
 const ExchangeRates = () => {
   const [selectedCurrency, setSelectedCurrency] = useState("USD");
@@ -20,7 +21,7 @@ const ExchangeRates = () => {
   const handleNewCurrencySelected = (newCurrency: string) =>
     setSelectedCurrency(newCurrency);
 
-  if (currencyPairs === undefined) {
+  if (status === "error") {
     throw Error("Failed to retrieve exchange rates!");
   }
 
@@ -47,4 +48,10 @@ const ExchangeRates = () => {
   );
 };
 
-export default ExchangeRates;
+export default function ExchangeRatesErrorBoundary() {
+  return (
+    <ErrorBoundary>
+      <ExchangeRates />
+    </ErrorBoundary>
+  );
+}
